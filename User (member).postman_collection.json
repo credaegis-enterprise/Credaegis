@@ -1,0 +1,1031 @@
+{
+	"info": {
+		"_postman_id": "130ff2f3-d816-4c60-9147-2fff203760ba",
+		"name": "User (member)",
+		"description": "The APIs listed under **User(Member)** pertain to APIs that are related to member accounts and their actions.\n\nThere are two roles under the Member category:\n\n1. cluster Admin : This user is the administrator of a cluster and has access to certificate approval, member creation, etc. and enjoys many admin privileges.\n    \n2. member : This refers to a member within a cluster. They have minimal privileges and mostly can only upload certificates for approval.\n    \n\n- Authentication\n    \n- Member\n    \n- Event\n    \n- Account\n    \n- Approval\n    \n- Certificate\n    \n\nThe role access is specified in the documentation of each API.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29357574",
+		"_collection_link": "https://credaegis.postman.co/workspace/credaegis-v2~8fcf83d5-1e3c-49d9-bf44-006c0a6a8c1a/collection/29357574-130ff2f3-d816-4c60-9147-2fff203760ba?action=share&source=collection_link&creator=29357574"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"alina@gmail.com\",\n    \"password\":\"sgce\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/member/auth/login",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"auth",
+								"login"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/member/auth/login`\n\n**Description:**  \nAllows a member to log in to the platform using their registered email and password.\n\n**Request Body:**\n\n- `email` (string, required): Email of the member.\n    \n- `password` (string, required): Password of the member.\n    \n\n**Role access:**\n\n- clusterAdmin\n    \n- member"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/auth/logout",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/member/auth/logout`\n\n**Description:**  \nAllows an member to log out of the platform.\n\n**Role access:**\n\n- clusterAdmin\n    \n- member"
+					},
+					"response": []
+				},
+				{
+					"name": "mfa login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"sgce@saintgits.org\",\n    \"password\":\"sgce\",\n    \"otp\":\"828459\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/member/auth/mfa/login",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"auth",
+								"mfa",
+								"login"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/member/auth/mfa/login`\n\n**Description:**  \nAllows a member to log in to the platform using their registered email and password as well as a one time password for multifaceted authentication.\n\n**Request Body:**\n\n- `email` (string) : Email of member.\n    \n- `password` (string) : password of the member account.\n    \n- `otp` (string) : 6 digit otp for the account.\n    \n\n**Role access:**\n\n- clusterAdmin\n    \n- member"
+					},
+					"response": []
+				},
+				{
+					"name": "Session check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/auth/session-check",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"auth",
+								"session-check"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/auth/session-check`\n\n**Description:**  \nRetrieves the member's account's session details for use by application.\n\n**Role access:**\n\n- clusterAdmin\n    \n- member"
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Authentication** are related to Members different authentication options.\n\n- Login\n    \n- Logout\n    \n- mfa login\n    \n- Session check\n    \n\nThese APIs can be accessed by both a cluster admin and members."
+		},
+		{
+			"name": "Member",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"allen\",\n    \"email\": \"allen@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/member/member-control/create",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"member-control",
+								"create"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/member/member-control/create`\n\n**Description:**  \nAllows a cluster admin to create a member within a cluster given a cluster id.\n\n**Request Body:**\n\n`username`(string) : Name of the member.\n\n`email` (string) : Email address of the member.\n\n**Role access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "Activate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/member-control/activate/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"member-control",
+								"activate",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEEASXYT826WY44VTE68T5MY"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/member-control/activate/:id`\n\n**Description:**  \nAllows a cluster admin to activate a cluster.\n\n**Request Path Variables:**\n\n`id` (value) : The Cluster ID of the cluster one wants to activate.\n\n**Role access:**\n\n- cluster admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{route_user_v1}}/member-control/deactivate/:id",
+							"host": [
+								"{{route_user_v1}}"
+							],
+							"path": [
+								"member-control",
+								"deactivate",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEED0XF7DDFQRXG5H6SN8G9D"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/member-control/deactivate/:id`\n\n**Description:**  \nAllows an cluster admin to deactivate a member's account.\n\n**Request Path Variables:**\n\n`id` (value): The ID of the member to deactivate.\n\n**Role access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "soft delete",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/member-control/delete/:id{",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"member-control",
+								"delete",
+								":id{"
+							],
+							"variable": [
+								{
+									"key": "id{",
+									"value": ""
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/member-control/delete/:id`\n\n**Description:**  \nAllows a cluster admin to delete a member's account.  \n(Dosen't delete the member data from the db, only sets a column as deleted such that the member isn't shown as a member of the cluster anymore.)\n\n**Request Path Variables:**\n\n`id` (value): The ID of the member to delete.\n\n**Role access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all members in cluster",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/member-control/get-all",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"member-control",
+								"get-all"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/member-control/get-all`\n\n**Description:**  \nAllows a cluster admin to get all members in a cluster.\n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Member** are related to a cluster admin's capability to create members and perform related operations.\n\n- Create\n    \n- Activate\n    \n- Deactivate\n    \n- soft delete\n    \n- Get all members in cluster\n    \n\nOnly a cluster admin can access these APIs."
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventName\":\"file test\",\n    \"description\": \"this event is made to test file\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/member/event-control/create",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"event-control",
+								"create"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/event/event-control/create`\n\n**Description:**  \nAllows a cluster admin to create an event.\n\n**Request Body:**\n\n- `email` (string, required): Email of the clutser admiin.\n    \n- `password` (string, required): Password of anyone\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "Activate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/event-control/activate/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"event-control",
+								"activate",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEFX4V4HA3SZJ6R0M8W3D6VA"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/event-control/activate/:id`\n\n**Description:**  \nAllows a cluster admin to activate an event.\n\n**Request Path Variables:**\n\n- `id` (string, required): ID of the event to be activated.\n    \n\n**Role Access:**\n\n- cluster admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/event-control/deactivate/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"event-control",
+								"deactivate",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEFX4V4HA3SZJ6R0M8W3D6VA"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/event-control/deactivate/:id`\n\n**Description:**  \nAllows a cluster admin to deactivate an event.\n\n**Request Path Variables:**\n\n- `id` (string, required): ID of the event to be deactivated.\n    \n\n**Role Access:**\n\n- cluster admin"
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventName\": \"This is test event\",\n    \"eventDescription\":\"sss\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/member/event-control/update/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"event-control",
+								"update",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEFXPE3ASC1NH6XZ4R4NT0WX"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/event-control/update/:id`\n\n**Description:**  \nAllows a cluster admin to update an event.\n\n**Request Path Variables:**\n\n- `id` (string, required): ID of the event to be updated.\n    \n\n**Request Body:**\n\n- `eventName` (string) : New updated event name.\n    \n- `eventDescription` (string) : New updated description for the event.\n    \n\n**Role Access**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "search by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/event-control/event/name/search?name=Women In Tech hackathon",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"event-control",
+								"event",
+								"name",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Women In Tech hackathon"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/event-control/event/name/search?name=Best Project (Internal)`\n\n**Description:**  \nAllows a member to get the details of an event within the cluster that they are part of.\n\n**Request Query Paramenters:**\n\n- `name` (string, required): Name of the event to be searched for.\n    \n\n**Role Access:**\n\n- clusterAdmin\n    \n- member"
+					},
+					"response": []
+				},
+				{
+					"name": "get all events in cluster",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/event-control/get-all",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"event-control",
+								"get-all"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/event-control/get-all`\n\n**Description:**  \nAllows a cluster admin to get all events in a cluster.\n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Event** are related to a member's capability to create events and perform related operations.\n\n- Create\n    \n- Activate\n    \n- Deactivate\n    \n- Update\n    \n- search by name\n    \n- get all events in cluster\n    \n\nAll above lister APIs can be accessed only by cluster admin except \"search by name\" API, which can be accessed by all members."
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Change password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\":\"ss\",\n    \"newPassword\":\"sgce\",\n    \"confirmPassword\":\"sgce\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/member/account/change-password",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"account",
+								"change-password"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/account/change-password`\n\n**Description:**  \nAllows a member to change the password of the account.\n\n**Request Body:**\n\n- `oldPassword` (string) : the old password associated with the account\n    \n- `newPassword` (string) : the new password to be associated with the account.\n    \n- `confirmPassword` (string) : Retype the new passowrd to confirm.\n    \n\n**Role Access:**\n\n- clusterAdmin\n    \n- member"
+					},
+					"response": []
+				},
+				{
+					"name": "mfa generate qr",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/account/mfa/generate-qr",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"account",
+								"mfa",
+								"generate-qr"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/member/account/mfa/generate-qr`\n\n**Description:**  \nAllows a member to create a qr code which when scanned through an authenticator app, generates multifactor authentication otp's for the account.\n\n**Role Access:**\n\n- clusterAdmin\n    \n- member"
+					},
+					"response": []
+				},
+				{
+					"name": "mfa register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/account/mfa/register/:code",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"account",
+								"mfa",
+								"register",
+								":code"
+							],
+							"variable": [
+								{
+									"key": "code",
+									"value": "511082"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/member/account/mfa/register/:code`\n\n**Description:**  \nAllows a member to register for multifactor Authentication for their account by entering the otp from a preferred authenticator app.\n\n**Request Parameters:**\n\n`code` (integer) : The 6 digit one time password (otp) generated by the authenticator app.\n\n**Role Access:**\n\n- clusterAdmin\n    \n- member"
+					},
+					"response": []
+				},
+				{
+					"name": "disable mfa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/account/mfa/disable",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"account",
+								"mfa",
+								"disable"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/account/mfa/disable`\n\n**Description:**  \nAllows a member to disable multifaceted authentication for a registered account.\n\n**Role Access:**\n\n- clusterAdmin\n    \n- member"
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/account/me",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"account",
+								"me"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/account/me`\n\n**Description:**  \nAllows a member to retrieve the account details based on the session data.\n\n**Role Access:**\n\n- clusterAdmin\n    \n- member"
+					},
+					"response": []
+				},
+				{
+					"name": "update account",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"Saintgits admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/member/account/update-info",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"account",
+								"update-info"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/account/update-info`\n\n**Description:**  \nAllows a member to edit the username of the account.\n\n**Request Body:**\n\n- `username` (string) : New user name."
+					},
+					"response": []
+				},
+				{
+					"name": "Serve brand logo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/account/serve/brand-logo",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"account",
+								"serve",
+								"brand-logo"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/account/serve/brand-logo`\n\n**Description:**  \nAllows a member to retrieve the uploaded brand logo.\n\n**Role Access:**\n\n- clusterAdmin\n    \n- member"
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Account** are related to Member's capability to perform account operations.\n\n- Change password\n    \n- mfa generate qr\n    \n- mfa register\n    \n- disable mfa\n    \n- Me\n    \n- update account\n    \n- Serve brand logo\n    \n\nThese APIs can be accessed by both a cluster admin and a member."
+		},
+		{
+			"name": "Approval",
+			"item": [
+				{
+					"name": "Upload certificates for approval",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "approvals",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "info",
+									"value": "[\n    {\n        \"fileName\": \"document1.pdf\",\n        \"recipientName\": \"John Doe\",\n        \"recipientEmail\": \"john.doe@example.com\",\n        \"expiryDate\": \"2024-12-31\",\n        \"comments\": \"This is the first test comment.\"\n    },\n{\n        \"fileName\": \"document2.pdf\",\n        \"recipientName\": \"John Doe\",\n        \"recipientEmail\": \"john.doe@example.com\",\n        \"expiryDate\": \"2024-12-31\",\n        \"comments\": \"This is the first test comment.\"\n    }\n\n]",
+									"type": "text"
+								},
+								{
+									"key": "approvals",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local_url}}/member/approval-control/upload/:eventId",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"member",
+								"approval-control",
+								"upload",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": ""
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/member/approval-control/upload/:eventId`\n\n**Description:**  \nAllows a member to upload certificates for approval.\n\n**Request Body:**\n\n- `approvals` (file) : Upload files for approval.\n    \n- `info` (string) : Metadata on the files uploaded.\n    \n\n**Role Access:**\n\n- cluster admin\n    \n- member"
+					},
+					"response": []
+				},
+				{
+					"name": "approve certificates",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"approvalCertificateIds\":[\"01JEZF3PGYY72GPQHB1AGXQ5Z4\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/member/approval-control/approve",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"member",
+								"approval-control",
+								"approve"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/member/approval-control/approve`\n\n**Description:**  \nAllows a cluster admin to approve the certificates.\n\n**Request Body:**\n\n- `approvalCertificateIds` (string) : The approval IDs of certificates to be approved.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "reject certificates",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"approvalCertificateIds\":[\"11111\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/member/approval-control/reject",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"approval-control",
+								"reject"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/approval-control/reject`\n\n**Description:**  \nAllows an cluster admin to reject certificates submitted for approval.\n\n**Request Body:**\n\n- `approvalCertificateIds` (string) : The approval IDs of certificates to be rejected.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "view approval",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/approval-control/view/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"approval-control",
+								"view",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JF23XTPT02HNGA1RYRQA18Z1"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/approval-control/view/:id`\n\n**Description:**  \nAllows a cluster admin to view all certificates submitted for approval.\n\n**Request Path Variables:**\n\n- `id` (string) : The approval IDs of certificates to be viewed.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all approvals in event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/approval-control/event/get-all/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"approval-control",
+								"event",
+								"get-all",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEGN2V5GKX4GSZ2N0W6AJR23"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/approval-control/event/get-all/:id`\n\n**Description:**  \nAllows a member to view all certificates submitted for approval filtered by event.\n\n**Request Path Variables:**\n\n- `id` (string) : The IDs of the event whose certificates are to be viewed.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "get all approvals in cluster",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/approval-control/cluster/get-all",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"approval-control",
+								"cluster",
+								"get-all"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/approval-control/cluster/get-all/:id`\n\n**Description:**  \nAllows a cluster admin to view all certificates submitted for approval filtered by cluster.\n\n**Request Path Variables:**\n\n- `id` (string) : The ID of the cluster whose certificates are to be viewed.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "get count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/approval-control/get-count?status=pending",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"approval-control",
+								"get-count"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/approval-control/cluster/get-all/:id`\n\n**Description:**  \nAllows a cluster admin to view the number of certificates which are pending.\n\n**Request Query Params:**\n\n- status (string) : The status of the approval.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "Modify approval",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"approvalId\":\"01JGEQ109W0T7YP2CQBV6J8VZC\",\n    \"recipientName\":\"Hridya\",\n    \"recipientEmail\":\"hridya.csa2125@saintgits.org\",\n    \"comments\":\"NULL\",\n    \"expiryDate\":\"2026-11-02\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/member/approval-control/modify",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"approval-control",
+								"modify"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/approval-control/modify`\n\n**Description:**  \nAllows a cluster admin to modify the data for approvals.\n\n**Request Body:**\n\n- `approvalId` (string) : The ID of the approval to be updated.\n    \n- `recipientName` (string) : Name of the certificate recipient.\n    \n- `recipientEmail` (string) : Email of the recipient of the certificate.\n    \n- `comments` (string) : Comments on the approval.\n    \n- `expiryDate` (string) : Date of expiry of the certificate.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "Blockchain approve",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"approvalCertificateIds\":[\"11\",\"22\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/member/approval-control/blockchain/approve?persist=true",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"approval-control",
+								"blockchain",
+								"approve"
+							],
+							"query": [
+								{
+									"key": "persist",
+									"value": "true"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/member/approval-control/blockchain/approve?persist=true`\n\n**Description:**  \nAllows a cluster admin to approve certificates with the control over whether it persists in MinIO after approval or not.\n\n**Request Query Params:**\n\n- `persist` (boolean) : If true, then the document is stored in MinIO even after approval; if false, the document is removed from MinIO after approval.\n    \n\n**Request Body:**\n\n- `approvalCertificateIds` (string) : ID of certificates to be approved.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Approval** are related to Member's capability to perform approval operations.\n\n- Upload certificates for approval\n    \n- approve certificates\n    \n- reject certificates\n    \n- view approval\n    \n- Get all approvals in event\n    \n- Get all approvals in cluster\n    \n- get count\n    \n- Modify approval\n    \n- Block chain approve\n    \n\nAll above listed API's can be accessed by a cluster admin but not a member except for \"Upload certificates for approval\" API, which can be accessed by any member."
+		},
+		{
+			"name": "Certificate",
+			"item": [
+				{
+					"name": "Get latest certificates(pagination) in cluster",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/certificate-control/cluster/get-latest?page=0&size=5",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"certificate-control",
+								"cluster",
+								"get-latest"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/certificate-control/cluster/:id/get-latest?page=0&size=2`\n\n**Description:**  \nAllows a cluster admin to view all the certificates in order of most recent using pagination to limit the number of certificates shown at a time filtered by clusters.\n\n**Request Query Params:**\n\n- `page` (integer) : Number of the page.\n    \n- `size` (integer) : size of the page.\n    \n\n**Request Path Variables:**\n\n- `id` (value) : ID of cluster to filter by.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "Get latest certificates in event (pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/certificate-control/event/:id/get-latest?page=0&size=1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"certificate-control",
+								"event",
+								":id",
+								"get-latest"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "1"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEXNQYFXS8VS6WP5QPSZTE5S"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/certificate-control/event/:id/get-latest?page=0&size=1`\n\n**Description:**  \nAllows a cluster admin to view all the certificates in order of most recent using pagination to limit the number of certificates shown at a time filtered by event.\n\n**Request Query Params:**\n\n- `page` (integer) : Number of the page.\n    \n- `size` (integer) : size of the page.\n    \n\n**Request Path Variables:**\n\n- `id` (value) : ID of event to filter by.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "revoke certificates",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"certificateIds\":[\"01JEZF4D9VP7XQEJQHM5WJWY84\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/member/certificate-control/revoke",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"certificate-control",
+								"revoke"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/member/certificate-control/revoke`\n\n**Description:**  \nAllows a cluster admin to revoke a certificate given the certificate ID.\n\n**Request Body:**\n\n- `certificateIds` (string) : ID of the certificate to be revoked.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "Issued count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/certificate-control/issued/get-count",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"certificate-control",
+								"issued",
+								"get-count"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/certificate-control/issued/get-count`\n\n**Description:**  \nAllows a cluster admin to view the total number of issued certificates.\n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				},
+				{
+					"name": "View certificate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/member/certificate-control/view/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"member",
+								"certificate-control",
+								"view",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JGRRTSVTCKJ8415D6ZYHCCVP"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/member/certificate-control/view/:id`\n\n**Description:**  \nAllows a cluster admin to view a certificate given it's certificate ID.\n\n**Request Path Variables:**\n\n- `id` (value) : Certificate ID of the cartificate to be viewed.\n    \n\n**Role Access:**\n\n- clusterAdmin"
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Certificate** are related to a cluster admin's capability to create and approve certificates.\n\n- Get latest certificates (pagination)\n    \n- Get latest certificates in event (pagination)\n    \n- revoke certificates\n    \n- issued count\n    \n- View certificate\n    \n\nThese APIs can only be accessed by a cluster admin."
+		}
+	]
+}

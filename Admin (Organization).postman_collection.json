@@ -1,0 +1,2060 @@
+{
+	"info": {
+		"_postman_id": "3bab027c-2400-4e5e-91dc-8a706434ea9a",
+		"name": "Admin (Organization)",
+		"description": "The APIs listed under **Admin(Organization)** pertain to APIs that are either related to organization accounts or to be accessed by organizations alone.\n\n- Authentication\n    \n- Cluster\n    \n- Member\n    \n- Event\n    \n- Account\n    \n- Approval\n    \n- Certificate\n    \n- Verification",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29357574",
+		"_collection_link": "https://credaegis.postman.co/workspace/credaegis-v2~8fcf83d5-1e3c-49d9-bf44-006c0a6a8c1a/collection/29357574-3bab027c-2400-4e5e-91dc-8a706434ea9a?action=share&source=collection_link&creator=29357574"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"sgce@saintgits.org\",\n    \"password\":\"sgce\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/organization/auth/login",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"auth",
+								"login"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/auth/login`\n\n**Description:**  \nAllows an organization to log in to the platform using their registered email and password.\n\n**Request Body:**\n\n- `email` (string, required): Email of the organization.\n    \n- `password` (string, required): Password of the organization."
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/auth/logout",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/auth/logout`\n\n**Description:**  \nAllows an organization to log out of the platform.\n\n**Request Body:**\n\nNone."
+					},
+					"response": []
+				},
+				{
+					"name": "mfa login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"sgce@saintgits.org\",\n    \"password\":\"sgce\",\n    \"otp\":\"828459\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/auth/mfa/login",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"auth",
+								"mfa",
+								"login"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/auth/mfa/login`\n\n**Description:**  \nAllows an organization to log in to the platform using their registered email and password as well as a one time password for multifaceted authentication.\n\n**Request Body:**\n\n- `email` (string) : Email of organization.\n    \n- `password` (string) : password of the organization account.\n    \n- `otp` (string) : 6 digit otp for the account."
+					},
+					"response": []
+				},
+				{
+					"name": "Session check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/auth/session-check",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"auth",
+								"session-check"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/auth/session-check`\n\n**Description:**  \nRetrieves the organization account's session details for use by application."
+					},
+					"response": []
+				},
+				{
+					"name": "forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/auth/forgot-password?email=alinamaryarsam@gmail.com",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"auth",
+								"forgot-password"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "alinamaryarsam@gmail.com"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/auth/forgot-password?email=alinamaryarsam@gmail.com`\n\n**Description:**  \nAllows a user to send an email to registered emaiid in case they forgot the password. Returns a reset token in the email sent from [credaegis@gmail.com](https://mailto:credaegis@gmail.com).\n\n**Request Query Params:**\n\n- `email` (string) : The email id associated with the account.\n    \n\n**Role Access :**\n\n- organization\n    \n- cluster admin\n    \n- member"
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newPassword\": \"ss\",\n    \"confirmPassword\":\"jjsjsjsj\",\n    \"resetToken\": \"79120452-05ee-4e59-8983-8dea8e75cb8d\",\n    \"email\": \"sgce@saintgits.org\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/organization/auth/reset-password",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"auth",
+								"reset-password"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/auth/reset-password`\n\n**Description:**  \nAllows an organization to reset their password, given a reset token recieved in their email from calling the _forgot password_ API.\n\n**Request Body:**\n\n- `newPassword` (string) : the new password to be associated with the user account.\n    \n- `confirmPassword` (string) : retype new password to confirm it.\n    \n- `resetToken` (string) : The reset token recieved in registered email via the forgot password email.\n    \n- `email` (string) : Registered email associated with account.\n    \n\n**Role Access :**\n\n- organization\n    \n- cluster admin\n    \n- member"
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Authentication** are related to Organization's different authentication options.\n\n- Login\n    \n- Logout\n    \n- mfa login\n    \n- Session check\n    \n- forgot password\n    \n- reset password\n    \n\nAll these APIs are accessible to an organization account.  \n  \n**Special Case :** The _forgot password_ API and the _reset password_ API are accessible to all users. (cluster admin and member)."
+		},
+		{
+			"name": "Cluster",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clusterName\":\"test\",\n    \"adminName\":\"test-user\",\n    \"adminEmail\":\"t@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/organization/cluster-control/create",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"cluster-control",
+								"create"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/cluster-control/create`\n\n**Description:**  \nAllows an organization to create a cluster with a specified cluster admin name and password.\n\n**Request Body:**\n\n- `clusterName` (string) : Name of the cluster.\n    \n- `adminName` (string) : Name of the Cluster admin.\n    \n- `adminEmail` (string) : email address of cluster admin."
+					},
+					"response": []
+				},
+				{
+					"name": "Activate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/cluster-control/activate/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"cluster-control",
+								"activate",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/cluster-control/activate/:id`\n\n**Description:**  \nAllows an organization to activate a cluster.\n\n**Request Path Variables:**\n\n`id` (value) : The Cluster ID of the cluster one wants to activate."
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/cluster-control/deactivate/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"cluster-control",
+								"deactivate",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JGEND3ZCQE2RN1VSYFBMKEWC"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/cluster-control/deactivate/:id`\n\n**Description:**  \nAllows an organization to deactivate a cluster.\n\n**Request Path Variables:**\n\n`id` (value) : The Cluster ID of the cluster one wants to deactivate."
+					},
+					"response": []
+				},
+				{
+					"name": "Rename",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newName\":\"ss\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{route_admin_v1}}/cluster-control/rename/:id",
+							"host": [
+								"{{route_admin_v1}}"
+							],
+							"path": [
+								"cluster-control",
+								"rename",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEE9ZJPPJT811Q0TG2Z1P1GS"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/cluster-control/rename/:id`\n\n**Description:**  \nAllows an organization to rename a cluster.\n\n**Request Path Variables:**\n\n`id` (value) : The Cluster ID of the cluster one wants to rename.\n\n**Request Body:**\n\n`newName`(string) : New name for the cluster"
+					},
+					"response": []
+				},
+				{
+					"name": "Change Admin",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/cluster-control/change-admin/:clusterId/:newAdminId",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"cluster-control",
+								"change-admin",
+								":clusterId",
+								":newAdminId"
+							],
+							"variable": [
+								{
+									"key": "clusterId",
+									"value": "01JGEND3ZCQE2RN1VSYFBMKEWC"
+								},
+								{
+									"key": "newAdminId",
+									"value": "01JGEPEYRKFCF6YRWSW59ANJS5"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/cluster-control/change-admin/:clusterId/:newAdminId`\n\n**Description:**  \nAllows an organization to change the admin of a cluster.\n\n**Request Path Variables:**\n\n`clusterId` (value) : The ID of the cluster whose admin is to be changed.\n\n`newAdminId` (value) : The ID of the new admin."
+					},
+					"response": []
+				},
+				{
+					"name": "Privilege lock",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{route_admin_v1}}/cluster-control/permissions/lock/:id",
+							"host": [
+								"{{route_admin_v1}}"
+							],
+							"path": [
+								"cluster-control",
+								"permissions",
+								"lock",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEE9ZJPPJT811Q0TG2Z1P1GS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Privilege unlock",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{route_admin_v1}}/cluster-control/permissions/unlock/:id",
+							"host": [
+								"{{route_admin_v1}}"
+							],
+							"path": [
+								"cluster-control",
+								"permissions",
+								"unlock",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEE9ZJPPJT811Q0TG2Z1P1GS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all names and id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/cluster-control/get-clusters",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"cluster-control",
+								"get-clusters"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/cluster-control/get-clusters`\n\n**Description:**  \nAllows an organization to get the list of all clusters under the organization that's currently signed in. Retrieves only the names and Id of each cluster."
+					},
+					"response": []
+				},
+				{
+					"name": "get all info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/cluster-control/get-all",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"cluster-control",
+								"get-all"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/cluster-control/get-all`\n\n**Description:**  \nAllows an organization to get all info about the currently signed in organization."
+					},
+					"response": []
+				},
+				{
+					"name": "get one cluster info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/cluster-control/get-one/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"cluster-control",
+								"get-one",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JGEND3ZCQE2RN1VSYFBMKEWC"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/cluster-control/get-one/:id`\n\n**Description:**  \nRetrieves all information regarding one specified cluster.\n\n**Request Path Variables:**\n\n`id` (value) : The Cluster ID of the cluster one wants to get the details of."
+					},
+					"response": []
+				},
+				{
+					"name": "search by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/cluster-control/cluster/search?name=Srishti 2025",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"cluster-control",
+								"cluster",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Srishti 2025"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/cluster-control/cluster/search?name=Srishti 2025`\n\n**Description:**  \nRetrieves all details regarding one cluster given the name of cluster as input.\n\n**Query Parameters:**\n\n`name` (value) : The name of the cluster one wants to get the details of."
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Cluster** are related to Organization's different cluster operations.\n\n- Create\n    \n- Activate\n    \n- Deactivate\n    \n- Rename\n    \n- Change Admin\n    \n- Privilege lock (to be tested)\n    \n- Privilege unlock (to be tested)\n    \n- get all names and id\n    \n- get all info\n    \n- get one cluster info\n    \n- search by name"
+		},
+		{
+			"name": "Member",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"Latitia Ttesot\",\n    \"email\": \"latte@gmail.com\",\n    \"clusterId\":\"01JGEND3ZCQE2RN1VSYFBMKEWC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/member-control/create",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"member-control",
+								"create"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/member-control/create`\n\n**Description:**  \nAllows an organization to create a member within a cluster given a cluster id.\n\n**Request Body:**\n\n`username`(string) : Name of the member.\n\n`email` (string) : Email address of the member.\n\n`clusterId` (string) : The Cluster ID of the cluster to create a member under."
+					},
+					"response": []
+				},
+				{
+					"name": "Activate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/member-control/activate/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"member-control",
+								"activate",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEEASXYT826WY44VTE68T5MY"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/member-control/activate/:id`\n\n**Description:**  \nAllows an organization to activate a member's account.\n\n**Request Path Variables:**\n\n`id` (value): The ID of the member to activate."
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/member-control/deactivate/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"member-control",
+								"deactivate",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JGESSR94TXE0MM9JPSYNW3M8"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/member-control/deactivate/:id`\n\n**Description:**  \nAllows an organization to deactivate a member's account.\n\n**Request Path Variables:**\n\n`id` (value): The ID of the member to deactivate."
+					},
+					"response": []
+				},
+				{
+					"name": "Rename",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newName\":\"Latitia Ttesott\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/member-control/rename/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"member-control",
+								"rename",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JGESSR94TXE0MM9JPSYNW3M8"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/member-control/rename/:id`\n\n**Description:**  \nAllows an organization to rename a member, given their ID.\n\n**Request Path Variables:**\n\n`id` (value): The ID of the member to activate.\n\n**Request Body:**\n\n`newName` (string) : New name to update the name of member to."
+					},
+					"response": []
+				},
+				{
+					"name": "soft delete",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/member-control/delete/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"member-control",
+								"delete",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JGESSR94TXE0MM9JPSYNW3M8"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/member-control/delete/:id`\n\n**Description:**  \nAllows an organization to delete a member's account.  \n(Dosen't delete the member data from the db, only sets a column as deleted such that the member isn't shown as a member of the cluster anymore.)\n\n**Request Path Variables:**\n\n`id` (value): The ID of the member to delete."
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Member** are related to Organization's capability to create members and perform related operations.\n\n- Create\n    \n- Activate\n    \n- Deactivate\n    \n- Rename\n    \n- soft delete"
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventName\":\"Best Internal Project\",\n    \"description\": \"Awarded to students of SGCE for best project\",\n    \"clusterId\":\"01JGEND3ZCQE2RN1VSYFBMKEWC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/event-control/create",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"event-control",
+								"create"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/event-control/create`\n\n**Description:**  \nAllows an organization to create an event.\n\n**Request Body:**\n\n- `email` (string, required): Email of the organization.\n    \n- `password` (string, required): Password of the organization."
+					},
+					"response": []
+				},
+				{
+					"name": "Activate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/event-control/activate/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"event-control",
+								"activate",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEFX4V4HA3SZJ6R0M8W3D6VA"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/event-control/activate/:id`\n\n**Description:**  \nAllows an organization to activate an event.\n\n**Request Path Variables:**\n\n- `id` (string, required): ID of the event to be activated."
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/event-control/deactivate/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"event-control",
+								"deactivate",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JGGXMAS1Y429V7R9KRBJW91R"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/event-control/deactivate/:id`\n\n**Description:**  \nAllows an organization to deactivate an event.\n\n**Request Path Variables:**\n\n- `id` (string, required): ID of the event to be deactivated."
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventName\": \"Best Project (Internal)\",\n    \"eventDescription\":\"Same thing\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/event-control/update/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"event-control",
+								"update",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JGGXMAS1Y429V7R9KRBJW91R"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/event-control/update/:id`\n\n**Description:**  \nAllows an organization to update an event.\n\n**Request Path Variables:**\n\n- `id` (string, required): ID of the event to be updated.\n    \n\n**Request Body:**\n\n- `eventName` (string) : New updated event name.\n    \n- `eventDescription` (string) : New updated description for the event."
+					},
+					"response": []
+				},
+				{
+					"name": "search by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/event-control/event/name/search?name=Best Project (Internal)",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"event-control",
+								"event",
+								"name",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Best Project (Internal)"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/event-control/event/name/search?name=Best Project (Internal)`\n\n**Description:**  \nAllows an organization to get the details of an event by searching in the db given an event name.\n\n**Request Query Paramenters:**\n\n- `name` (string, required): Name of the event to be searched for."
+					},
+					"response": []
+				},
+				{
+					"name": "Search by name and cluster id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/event-control/event/cluster/search?name=Best Project (Internal)&clusterId=01JGEND3ZCQE2RN1VSYFBMKEWC",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"event-control",
+								"event",
+								"cluster",
+								"search"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Best Project (Internal)"
+								},
+								{
+									"key": "clusterId",
+									"value": "01JGEND3ZCQE2RN1VSYFBMKEWC"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/event-control/event/cluster/search?name=Best Project (Internal)&clusterId=01JGEND3ZCQE2RN1VSYFBMKEWCE`\n\n**Description:**  \nAllows an organization to get the details of an event by searching in the db given an event name and a cluster ID.\n\n**Request Query Paramenters:**\n\n- `name` (string, required): Name of the event to be searched for.\n    \n- `clusterId` (value) : Cluster ID of the event to be searched for."
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Event** are related to Organization's capability to create events and perform related operations.\n\n- Create\n    \n- Activate\n    \n- Deactivate\n    \n- Update\n    \n- search by name\n    \n- search by name and Cluster ID"
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Change password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\":\"ss\",\n    \"newPassword\":\"sgce\",\n    \"confirmPassword\":\"sgce\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/account/change-password",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"account",
+								"change-password"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/account/change-password`\n\n**Description:**  \nAllows an organization to change the password of the account.\n\n**Request Body:**\n\n- `oldPassword` (string) : the old password associated with the account\n    \n- `newPassword` (string) : the new password to be associated with the account.\n    \n- `confirmPassword` (string) : Retype the new passowrd to confirm."
+					},
+					"response": []
+				},
+				{
+					"name": "mfa generate qr",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/account/mfa/generate-qr",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"account",
+								"mfa",
+								"generate-qr"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/account/mfa/generate-qr`\n\n**Description:**  \nAllows an organization to create a qr code which when scanned through an authenticator app, generates multifactor authentication otp's for the account."
+					},
+					"response": []
+				},
+				{
+					"name": "mfa register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/account/mfa/register/:code",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"account",
+								"mfa",
+								"register",
+								":code"
+							],
+							"variable": [
+								{
+									"key": "code",
+									"value": "511082"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/account/mfa/register/:code`\n\n**Description:**  \nAllows an organization to register for multifactor Authentication for their account by entering the otp from a preferred authenticator app.\n\n**Request Parameters:**\n\n`code` (integer) : The 6 digit one time password (otp) generated by the authenticator app."
+					},
+					"response": []
+				},
+				{
+					"name": "disable mfa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/account/mfa/disable",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"account",
+								"mfa",
+								"disable"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/account/mfa/disable`\n\n**Description:**  \nAllows an organization to disable multifaceted authentication for a registered account."
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/account/me",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"account",
+								"me"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/account/me`\n\n**Description:**  \nAllows an organization to retrieve the account details based on the session data."
+					},
+					"response": []
+				},
+				{
+					"name": "update account",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"Saintgits administration\",\n    \"organizationName\":\"Saintgits College of Engineering\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/account/update-info",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"account",
+								"update-info"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/account/update-info`\n\n**Description:**  \nAllows an organization to edit the username and organization name of the organization account.\n\n**Request Body:**\n\n- `username` (string) : New user name.\n    \n- `organizationName` (string) : New organization name."
+					},
+					"response": []
+				},
+				{
+					"name": "Upload brand logo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "logo",
+									"type": "file",
+									"src": "/Users/allenbastianjoy/Desktop/ABJ/personal/images/IMG_4756.jpg",
+									"disabled": true
+								},
+								{
+									"key": "logo",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/account/upload/brand-logo",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"account",
+								"upload",
+								"brand-logo"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/account/upload/brand-logo`  \n\n**Description:**  \nAllows an organization to upload a brand logo.\n\n**Request Body:**\n\n- `logo` (file) : Logo file upload."
+					},
+					"response": []
+				},
+				{
+					"name": "Serve brand logo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/account/serve/brand-logo",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"account",
+								"serve",
+								"brand-logo"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/account/serve/brand-logo`\n\n**Description:**  \nAllows an organization to retrieve the uploaded brand logo."
+					},
+					"response": []
+				},
+				{
+					"name": "remove brand logo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization//account/remove/brand-logo",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"",
+								"account",
+								"remove",
+								"brand-logo"
+							]
+						},
+						"description": "**Endpoint:**\n\n`DELETE {{server_url}}/organization//account/remove/brand-logo`\n\n**Description:**  \nAllows an organization to delete the uploaded brand logo."
+					},
+					"response": []
+				},
+				{
+					"name": "Get notifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/account/notifications",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"account",
+								"notifications"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/account/notifications`\n\n**Description:**  \nAllows an organization to retrieve all notifications for that account."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete one notification",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/account/delete/notifications/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"account",
+								"delete",
+								"notifications",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JGGJ5DE9B3H0K7B58CWX6CHI"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`DELETE {{server_url}}/organization/account/delete/notifications/:id`\n\n**Description:**  \nAllows an organization to delete a notification from their account.\n\n**Request Path Variables:**\n\n- `id` (value) : The ID of the notification to be deleted."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete all notification",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/account/delete/notifications/all",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"account",
+								"delete",
+								"notifications",
+								"all"
+							]
+						},
+						"description": "**Endpoint:**\n\n`DELETE {{server_url}}/organization/account/delete/notifications/all`  \n\n**Description:**  \nAllows an organization to delete all the notifications for the account."
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Account** are related to Organization's capability to perform account operations.\n\n- Change password\n    \n- mfa generate qr\n    \n- mfa register\n    \n- disable mfa\n    \n- Me\n    \n- update account\n    \n- Upload brand logo\n    \n- Serve brand logo\n    \n- remove brand logo\n    \n- Get notifications\n    \n- Delete one notification\n    \n- Delete all notification"
+		},
+		{
+			"name": "Approval",
+			"item": [
+				{
+					"name": "Upload certificates for approval",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "approvals",
+									"type": "file",
+									"src": "/Users/allenbastianjoy/Desktop/test-files/document1.pdf"
+								},
+								{
+									"key": "info",
+									"value": "[\n    {\n        \"fileName\": \"document1.pdf\",\n        \"recipientName\": \"John Doe\",\n        \"recipientEmail\": \"john.doe@example.com\",\n        \"expiryDate\": \"2024-12-31\",\n        \"comments\": \"This is the first test comment.\"\n    },\n{\n        \"fileName\": \"document2.pdf\",\n        \"recipientName\": \"John Doe\",\n        \"recipientEmail\": \"john.doe@example.com\",\n        \"expiryDate\": \"2024-12-31\",\n        \"comments\": \"This is the first test comment.\"\n    }\n\n]",
+									"type": "text"
+								},
+								{
+									"key": "approvals",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/approval-control/upload/:eventId",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"approval-control",
+								"upload",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "01JGG633RSX4M3W3M2NPZD72YS"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/approval-control/upload/:eventId`\n\n**Description:**  \nAllows an organization to upload certificates for approval.\n\n**Request Body:**\n\n- `approvals` (file) : Upload files for approval.\n    \n- `info` (string) : Metadata on the files uploaded."
+					},
+					"response": []
+				},
+				{
+					"name": "approve certificates",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"approvalCertificateIds\":[\"01JGEM1Y7ZB9JK43A4GMGXQPEF\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/approval-control/approve",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"approval-control",
+								"approve"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/approval-control/approve`\n\n**Description:**  \nAllows an organization to approve the certificates.\n\n**Request Body:**\n\n- `approvalCertificateIds` (string) : The approval IDs of certificates to be approved."
+					},
+					"response": []
+				},
+				{
+					"name": "reject certificates",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"approvalCertificateIds\":[\"11111\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{route_admin_v1}}/approval-control/reject",
+							"host": [
+								"{{route_admin_v1}}"
+							],
+							"path": [
+								"approval-control",
+								"reject"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/approval-control/reject`\n\n**Description:**  \nAllows an organization to reject certificates submitted for approval.\n\n**Request Body:**\n\n- `approvalCertificateIds` (string) : The approval IDs of certificates to be rejected."
+					},
+					"response": []
+				},
+				{
+					"name": "view approval",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/approval-control/view/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"approval-control",
+								"view",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JF23XTPT02HNGA1RYRQA18Z1"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/approval-control/view/:id`\n\n**Description:**  \nAllows an organization to view all certificates submitted for approval.\n\n**Request Path Variables:**\n\n- `id` (string) : The approval IDs of certificates to be viewed."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all approvals in event",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/approval-control/event/get-all/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"approval-control",
+								"event",
+								"get-all",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEGN2V5GKX4GSZ2N0W6AJR23"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/approval-control/event/get-all/:id`\n\n**Description:**  \nAllows an organization to view all certificates submitted for approval filtered by event.\n\n**Request Path Variables:**\n\n- `id` (string) : The IDs of the event whose certificates are to be viewed."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all approvals in cluster",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/approval-control/cluster/get-all/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"approval-control",
+								"cluster",
+								"get-all",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEGN2V5GKX4GSZ2N0W6AJR23"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/approval-control/cluster/get-all/:id`\n\n**Description:**  \nAllows an organization to view all certificates submitted for approval filtered by cluster.\n\n**Request Path Variables:**\n\n- `id` (string) : The ID of the cluster whose certificates are to be viewed."
+					},
+					"response": []
+				},
+				{
+					"name": "get all approvals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/approval-control/get-all",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"approval-control",
+								"get-all"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/approval-control/get-all`\n\n**Description:**  \nAllows an organization to view all certificates submitted for approval."
+					},
+					"response": []
+				},
+				{
+					"name": "get count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/approval-control/get-count?status=pending",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"approval-control",
+								"get-count"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/approval-control/cluster/get-all/:id`\n\n**Description:**  \nAllows an organization to view the number of certificates which are pending.\n\n**Request Query Params:**\n\n- status (string) : The status of the approval."
+					},
+					"response": []
+				},
+				{
+					"name": "Modify approval",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"approvalId\":\"01JGEQ109W0T7YP2CQBV6J8VZC\",\n    \"recipientName\":\"Hridya\",\n    \"recipientEmail\":\"hridya.csa2125@saintgits.org\",\n    \"comments\":\"NULL\",\n    \"expiryDate\":\"2026-11-02\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/approval-control/modify",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"approval-control",
+								"modify"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/approval-control/modify`\n\n**Description:**  \nAllows an organization to modify the data for approvals.\n\n**Request Body:**\n\n- `approvalId` (string) : The ID of the approval to be updated.\n    \n- `recipientName` (string) : Name of the certificate recipient.\n    \n- `recipientEmail` (string) : Email of the recipient of the certificate.\n    \n- `comments` (string) : Comments on the approval.\n    \n- `expiryDate` (string) : Date of expiry of the certificate."
+					},
+					"response": []
+				},
+				{
+					"name": "Block chain approve private",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"approvalCertificateIds\" : [\"01JGEM2VHK9E3MWAJH1AT83Y4D\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/approval-control/blockchain/approve?persist=true",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"approval-control",
+								"blockchain",
+								"approve"
+							],
+							"query": [
+								{
+									"key": "persist",
+									"value": "true"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/approval-control/blockchain/approve?persist=true`\n\n**Description:**  \nAllows an organization to approve certificates with the control over whether it persists in MinIO after approval or not\n\n**Request Query Params:**\n\n- `persist` (boolean) : If true, then the document is stored in MinIO even after approval; if false, the document is removed from MinIO after approval.\n    \n\n**Request Body:**\n\n- `approvalCertificateIds` (string) : ID of certificates to be approved."
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Approval** are related to Organization's capability to perform approval operations.\n\n- Upload certificates for approval\n    \n- approve certificates\n    \n- reject certificates\n    \n- view approval\n    \n- Get all approvals in event\n    \n- Get all approvals in cluster\n    \n- get all approvals\n    \n- get count\n    \n- Modify approval\n    \n- Block chain approve"
+		},
+		{
+			"name": "Certificate",
+			"item": [
+				{
+					"name": "Get latest certificates(pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/certificate-control/get-latest?page=0&size=5",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"certificate-control",
+								"get-latest"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/certificate-control/get-latest?page=0&size=5`\n\n**Description:**  \nAllows an organization to view all the certificates in order of most recent using pagination to limit the number of certificates shown at a time.\n\n**Request Query Params:**\n\n- `page` (integer) : Number of the page.\n    \n- `size` (integer) : size of the page."
+					},
+					"response": []
+				},
+				{
+					"name": "Get latest certificates in cluster (pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/certificate-control/cluster/:id/get-latest?page=0&size=2",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"certificate-control",
+								"cluster",
+								":id",
+								"get-latest"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JF352YN13E61FFFCH6VNT6V8"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/certificate-control/cluster/:id/get-latest?page=0&size=2`\n\n**Description:**  \nAllows an organization to view all the certificates in order of most recent using pagination to limit the number of certificates shown at a time filtered by clusters.\n\n**Request Query Params:**\n\n- `page` (integer) : Number of the page.\n    \n- `size` (integer) : size of the page.\n    \n\n**Request Path Variables:**\n\n- `id` (value) : ID of cluster to filter by."
+					},
+					"response": []
+				},
+				{
+					"name": "Get latest certificates in event (pagination)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/certificate-control/event/:id/get-latest?page=0&size=1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"certificate-control",
+								"event",
+								":id",
+								"get-latest"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "1"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JEXNQYFXS8VS6WP5QPSZTE5S"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/certificate-control/event/:id/get-latest?page=0&size=1`\n\n**Description:**  \nAllows an organization to view all the certificates in order of most recent using pagination to limit the number of certificates shown at a time filtered by event.\n\n**Request Query Params:**\n\n- `page` (integer) : Number of the page.\n    \n- `size` (integer) : size of the page.\n    \n\n**Request Path Variables:**\n\n- `id` (value) : ID of event to filter by."
+					},
+					"response": []
+				},
+				{
+					"name": "revoke certificates",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"certificateIds\":[\"01JEZF4D9VP7XQEJQHM5WJWY84\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/certificate-control/revoke",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"certificate-control",
+								"revoke"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/certificate-control/revoke`\n\n**Description:**  \nAllows an organization to revoke a certificate given the certificate ID.\n\n**Request Body:**\n\n- `certificateIds` (string) : ID of the certificate to be revoked."
+					},
+					"response": []
+				},
+				{
+					"name": "Issued count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/certificate-control/issued/get-count",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"certificate-control",
+								"issued",
+								"get-count"
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/certificate-control/issued/get-count`\n\n**Description:**  \nAllows an organization to view the total number of issued certificates."
+					},
+					"response": []
+				},
+				{
+					"name": "revoke certificate blockchain",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"certificateIds\":[\"01JG9A2Z9JE3J7Q1EY14TWJFQB\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/certificate-control/blockchain/revoke",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"certificate-control",
+								"blockchain",
+								"revoke"
+							]
+						},
+						"description": "**Endpoint:**\n\n`PUT {{server_url}}/organization/certificate-control/blockchain/revoke`\n\n**Description:**\n\n**Request Body:**\n\n- `certificateIds` (string) : IDs of certifcates to be revoked."
+					},
+					"response": []
+				},
+				{
+					"name": "View",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/organization/certificate-control/view/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"certificate-control",
+								"view",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "01JGRRTSVTCKJ8415D6ZYHCCVP"
+								}
+							]
+						},
+						"description": "**Endpoint:**\n\n`GET {{server_url}}/organization/certificate-control/view/:id`\n\n**Description:**  \nAllows an organization to view a certificate given it's certificate ID.\n\n**Request Path Variables:**\n\n- `id` (value) : Certificate ID of the cartificate to be viewed."
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **Certificate** are related to Organization's capability to create and approve certificates.\n\n- Get latest certificates (pagination)\n    \n- Get latest certificates in cluster (pagination)\n    \n- Get latest certificates in event (pagination)\n    \n- revoke certificates\n    \n- issued count\n    \n- revoke certificate blockchain\n    \n- View"
+		},
+		{
+			"name": "verification",
+			"item": [
+				{
+					"name": "check authenticity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "certificates",
+									"type": "file",
+									"src": "/C:/Users/Administrator/Desktop/ARS/College/Certificates/Alina Agile Certification.pdf"
+								},
+								{
+									"key": "certificates",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server_url}}/organization/external/verify",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"organization",
+								"external",
+								"verify"
+							]
+						},
+						"description": "**Endpoint:**\n\n`POST {{server_url}}/organization/external/verify`\n\n**Description:**  \nAllows an organization to verify the authenticity of a certificate.\n\n**Request Body:**\n\n- `certificates` (file) : File to check for authenticity."
+					},
+					"response": []
+				},
+				{
+					"name": "check authenticity blockchain",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "certificates",
+									"type": "file",
+									"src": "/Users/allenbastianjoy/Downloads/Allen Internship.pdf"
+								},
+								{
+									"key": "certificates",
+									"type": "file",
+									"src": "/Users/allenbastianjoy/Downloads/Internship Fredy.pdf",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local_url}}/organization/external/blockchain/verify",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"external",
+								"blockchain",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The APIs listed under **verification** are related to Organization's capability to verify certificates.\n\n- check authenticity\n    \n- check authenticity blockchain"
+		},
+		{
+			"name": "Web3",
+			"item": [
+				{
+					"name": "Get balance AVAX",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/web3/public/get-balance",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"web3",
+								"public",
+								"get-balance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get contract State Besu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/web3/private/contract-state",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"web3",
+								"private",
+								"contract-state"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get current batch info besu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/web3/private/current-batch",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"web3",
+								"private",
+								"current-batch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Batch Info with id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/web3/private/batch/:id",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"web3",
+								"private",
+								"batch",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Web3 info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/web3/public/info",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"web3",
+								"public",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Current Batch Merkle Root",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/web3/private/current-batch/merkle-root",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"web3",
+								"private",
+								"current-batch",
+								"merkle-root"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store current batch to public",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/web3/public/store/current/merkle-root",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"web3",
+								"public",
+								"store",
+								"current",
+								"merkle-root"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get txn details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/web3/public/txn/:hash",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"web3",
+								"public",
+								"txn",
+								":hash"
+							],
+							"variable": [
+								{
+									"key": "hash",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify merkle root public",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"merkleRoots\": [\"abj\",\"allen\",\"joy\",\"sebastian\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_url}}/organization/web3/public/verify/merkle-roots",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"web3",
+								"public",
+								"verify",
+								"merkle-roots"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Certificate info by hash",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/certificate-control/:hash",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"certificate-control",
+								":hash"
+							],
+							"variable": [
+								{
+									"key": "hash",
+									"value": "874b784a202c2fecbf13478323afbef781e03a53211826f02c6b24cf6c2d0bd1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retry merkle root public",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/organization/web3/public/store/:merkleRoot",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"organization",
+								"web3",
+								"public",
+								"store",
+								":merkleRoot"
+							],
+							"variable": [
+								{
+									"key": "merkleRoot",
+									"value": "aa"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Initialize Organization",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{server_url}}/organization/test/add/organization",
+					"host": [
+						"{{server_url}}"
+					],
+					"path": [
+						"organization",
+						"test",
+						"add",
+						"organization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{server_url}}/organization/test/check",
+					"host": [
+						"{{server_url}}"
+					],
+					"path": [
+						"organization",
+						"test",
+						"check"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "credaegis_123",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "X-API-KEY",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
